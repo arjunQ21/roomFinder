@@ -13,11 +13,7 @@ class _BuildRoomState extends State<BuildRoom> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Scaffold.of(context).showSnackBar(
-          SnackBar(
-            content: Text(widget.room.name + " clicked"),
-          ),
-        );
+        Navigator.pushNamed(context, '/room_details', arguments: widget.room);
       },
       child: Container(
         // constraints: BoxConstraints(maxWidth: 100),
@@ -37,7 +33,7 @@ class _BuildRoomState extends State<BuildRoom> {
               height: 180,
               decoration: BoxDecoration(
                 image: DecorationImage(
-                  image: widget.room.image.image,
+                  image: widget.room.image,
                   fit: BoxFit.cover,
                 ),
               ),

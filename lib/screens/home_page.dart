@@ -18,6 +18,7 @@ class _HomePageState extends State<HomePage> {
             RoomFilter(),
             Rooms(
               rooms: [
+                Room(),
                 Room(
                   name: "Appartment at Lamachaur",
                   price: 1699,
@@ -28,14 +29,14 @@ class _HomePageState extends State<HomePage> {
                   name: "Rental Room, Hemja",
                   price: 1999,
                   bhk: 1,
-                  image: Image.asset("assets/images/room_3.webp"),
+                  image: AssetImage("assets/images/room_3.webp"),
                 ),
                 Room(
                   name: "Flat for sale",
                   price: 9999,
                   bhk: 6,
                   type: "Flat",
-                  image: Image.asset("assets/images/room_2.jpg"),
+                  image: AssetImage("assets/images/room_2.jpg"),
                 ),
               ],
             ),
