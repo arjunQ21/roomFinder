@@ -52,24 +52,43 @@ class _RoomDetailsPageState extends State<RoomDetailsPage> {
                 padding: EdgeInsets.symmetric(vertical: 15, horizontal: 20),
                 // color: Colors.black.withOpacity(0.03),
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
                       _room.name,
                       style: Theme.of(context).textTheme.headline5,
                     ),
                     SizedBox(height: 15),
-                    _showRow('Location', _room.location),
+                    _showRow('address', _room.address),
                     _showRow('Rooms', _room.roomsCount.toString()),
                     _showRow('Price', "NRs. " + _room.price.toStringAsFixed(0)),
                     _showRow('BHK', _room.bhk.toString()),
                     SizedBox(height: 15),
-                    Text(
-                      _room.description,
-                      textAlign: TextAlign.justify,
-                      style: TextStyle(
-                        color: Color(0xff888888),
-                      ),
-                    ),
+                    if (_room.description != null)
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'About',
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(top: 8),
+                            child: Text(
+                              _room.description,
+                              // textAlign: TextAlign.justify,
+                              style: TextStyle(
+                                color: Color(0xff888888),
+                              ),
+                            ),
+                          ),
+                        ],
+                      )
+                    else
+                      null,
                     SizedBox(height: 15),
                     Align(
                       alignment: Alignment.centerLeft,
@@ -79,9 +98,9 @@ class _RoomDetailsPageState extends State<RoomDetailsPage> {
                         style: Theme.of(context).textTheme.headline5,
                       ),
                     ),
-                    _showRow("Name", "Shyam Lal"),
-                    _showRow("Address", "Lamachaur"),
-                    _showRow("Phone", "9866008814"),
+                    _showRow("Name", _room.ownerName ?? 'unknown'),
+                    _showRow("Address", _room.ownerAddress ?? 'unknown'),
+                    _showRow("Phone", _room.ownerContact ?? 'unknown'),
                   ],
                 ),
               ),
@@ -98,31 +117,36 @@ class _RoomDetailsPageState extends State<RoomDetailsPage> {
             children: [
               Padding(
                 padding: const EdgeInsets.only(right: 10),
-                child: RaisedButton(
-                  color: Colors.blue,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(100))),
-                  onPressed: () {
-                    UrlLauncher.launch("tel:9866008814");
-                  },
-                  child: Row(
-                    children: [
-                      Icon(
-                        Icons.phone,
-                        color: Colors.white,
-                        size: 23,
-                      ),
-                      SizedBox(width: 10),
-                      Text(
-                        'Talk to Owner',
-                        style: TextStyle(
-                          fontSize: 18,
-                          color: Colors.white,
+                child: _room.ownerContact != null
+                    ? RaisedButton(
+                        color: Colors.blue,
+                        shape: RoundedRectangleBorder(
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(100))),
+                        onPressed: () {
+                          UrlLauncher.launch("tel:" + _room.ownerContact);
+                        },
+                        child: Row(
+                          children: [
+                            Icon(
+                              Icons.phone,
+                              color: Colors.white,
+                              size: 23,
+                            ),
+                            SizedBox(width: 10),
+                            Text(
+                              'Talk to Owner',
+                              style: TextStyle(
+                                fontSize: 18,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ],
                         ),
+                      )
+                    : Container(
+                        child: Text('Owner\'s Contact not available'),
                       ),
-                    ],
-                  ),
-                ),
               ),
             ],
           ),
@@ -141,13 +165,13 @@ class _RoomDetailsPageState extends State<RoomDetailsPage> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(
-            key,
+            key ?? '',
             style: TextStyle(
               fontSize: 15,
             ),
           ),
           Text(
-            value,
+            value ?? '',
             style: TextStyle(
               color: Color(0xff666666),
               fontSize: 15,

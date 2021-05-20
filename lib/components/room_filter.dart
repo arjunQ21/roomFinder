@@ -28,7 +28,7 @@ class _RoomFilterState extends State<RoomFilter> {
                   color: Color(0xff555555),
                 ),
                 Text(
-                  "   Choose Location",
+                  "   Choose address",
                   style: TextStyle(
                     color: Color(0xff555555),
                   ),

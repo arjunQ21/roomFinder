@@ -85,7 +85,7 @@ class _BuildRoomState extends State<BuildRoom> {
                         ),
                       ),
                       SizedBox(height: 20),
-                      Text(widget.room.type),
+                      Text(widget.room.type ?? ''),
                     ],
                   ),
                 ],
