@@ -19,7 +19,7 @@ class HomePage extends StatelessWidget {
         body: SafeArea(
           child: ListView(
             children: [
-              RoomFilter(),
+              // RoomFilter(),
               Consumer<RoomsLoader>(
                 builder: (context, roomsLoader, child) {
                   // roomsLoader.getAll();

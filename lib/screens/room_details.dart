@@ -118,11 +118,16 @@ class _RoomDetailsPageState extends State<RoomDetailsPage> {
               Padding(
                 padding: const EdgeInsets.only(right: 10),
                 child: _room.ownerContact != null
-                    ? RaisedButton(
-                        color: Colors.blue,
-                        shape: RoundedRectangleBorder(
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(100))),
+                    ? ElevatedButton(
+                        // style: ButtonStyle(
+
+                        //   backgroundColor: Colors.blue,
+                        //   shape: RoundedRectangleBorder(
+                        //       borderRadius:
+                        //           BorderRadius.all(Radius.circular(100))),
+
+                        // ),
+
                         onPressed: () {
                           UrlLauncher.launch("tel:" + _room.ownerContact);
                         },
