@@ -16,6 +16,10 @@ class RoomsLoader with ChangeNotifier {
 
   List<Room> get all => _all;
 
+  List<String> getLocations() {
+    return _all.map((e) => e.address.toLowerCase()).toList().toSet().toList();
+  }
+
   Future<void> getAll({bool force = false}) async {
     if (force) _loaded = false;
     if (!_loaded) {

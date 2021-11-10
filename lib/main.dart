@@ -5,7 +5,7 @@ import "screens/home_page.dart";
 import "screens/login_page.dart";
 
 void main() {
-  Room.apiEndpoint = 'http://192.168.1.2:789/api/allRooms.php';
+  Room.apiEndpoint = 'http://192.168.1.3:789/api/allRooms.php';
   runApp(MaterialApp(
     debugShowCheckedModeBanner: false,
     routes: {

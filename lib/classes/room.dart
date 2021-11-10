@@ -1,5 +1,7 @@
 import "package:flutter/material.dart";
 
+import 'filter.dart';
+
 class Room {
   static String apiEndpoint = 'http://localhost';
 
@@ -36,6 +38,40 @@ class Room {
     this.type = type ?? "Room";
     this.address = address ?? "Pokhara";
     this.roomsCount = roomsCount ?? 1;
+  }
+
+  bool matches(Filter filter) {
+    bool noFiltersYet = true;
+    bool matches = false;
+
+    if (filter.keyword != null && filter.keyword.length > 0) {
+      final keyword = filter.keyword.toLowerCase().trim();
+      final matchingFields = [
+        name,
+        description,
+        address,
+        ownerName,
+        ownerAddress
+      ];
+
+      matchingFields.forEach((element) {
+        if (element.toLowerCase().contains(keyword)) matches = true;
+      });
+      noFiltersYet = false;
+    } else if (noFiltersYet) matches = true;
+    if (filter.minPrice != null && filter.minPrice > 0) {
+      matches = this.price >= filter.minPrice;
+      noFiltersYet = false;
+    } else if (noFiltersYet) matches = true;
+    if (filter.maxPrice != null) {
+      matches = matches && this.price <= filter.maxPrice;
+      noFiltersYet = false;
+    } else if (noFiltersYet) matches = true;
+    if (filter.locations != null && filter.locations.length > 0) {
+      matches = filter.locations.contains(address.toLowerCase());
+      noFiltersYet = false;
+    } else if (noFiltersYet) matches = true;
+    return matches;
   }
 
   Room.fromJson(Map<String, dynamic> rawRoom) {
